@@ -7,9 +7,9 @@ import { TodoList } from './TodoList';
 // import './App.css';
 
 const defaultTodos = [
-	{ text: 'Cortar papas', completed: true },
+	{ text: 'Abrir cuenta de github', completed: true },
 	{ text: 'Inicializar proyecto', completed: false },
-	{ text: 'Aprender React', completed: false },
+	{ text: 'Hacer componente Login', completed: false },
 ];
 
 function App() {
@@ -32,6 +32,20 @@ function App() {
 		});
 	}
 
+	const completeTodo = (text) => {
+		const todoIndex = todos.findIndex((todo) => todo.text === text);
+		const newTodos = [...todos];
+		newTodos[todoIndex].completed = true;
+		setTodos(newTodos);
+	};
+
+	const deleteTodo = (text) => {
+		const todoIndex = todos.findIndex((todo) => todo.text === text);
+		const newTodos = [...todos];
+		newTodos.splice(todoIndex, 1);
+		setTodos(newTodos);
+	};
+
 	return (
 		<React.Fragment>
 			<TodoCounter total={totalTodos} completed={completedTodos} />
@@ -42,6 +56,8 @@ function App() {
 						completed={todo.completed}
 						key={todo.text}
 						text={todo.text}
+						onComplete={() => completeTodo(todo.text)}
+						onDelete={() => deleteTodo(todo.text)}
 					/>
 				))}
 			</TodoList>
